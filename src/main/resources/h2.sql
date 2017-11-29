@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS User (
 );
 
 
+  INSERT INTO User (name, username, password) VALUES ('vlad', 'admin', 'admin');
+
 
 
 

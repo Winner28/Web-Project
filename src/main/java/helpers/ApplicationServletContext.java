@@ -13,15 +13,15 @@ public final class ApplicationServletContext<T> implements Supplier<T>, Consumer
     }
 
 
-
-    public static final ApplicationServletContext<JdbcDAO> DataBase = new ApplicationServletContext<>("database");
+    public static final ApplicationServletContext<JdbcDAO> DataBase =
+            new ApplicationServletContext<>("database");
 
     private final String contextName;
     private static ServletContext servletContext;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        this.servletContext = servletContextEvent.getServletContext();
+        servletContext = servletContextEvent.getServletContext();
     }
 
     @Override
@@ -36,6 +36,7 @@ public final class ApplicationServletContext<T> implements Supplier<T>, Consumer
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T get() {
         return (T)servletContext.getAttribute(contextName);
     }

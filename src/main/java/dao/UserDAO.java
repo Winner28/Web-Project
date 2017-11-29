@@ -2,6 +2,9 @@ package dao;
 
 import helpers.JdbcDAO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserDAO {
     private final JdbcDAO jdbcDAO;
 
@@ -10,12 +13,23 @@ public class UserDAO {
         this.jdbcDAO = jdbcDAO;
     }
 
-    /*
-    **
-    * JdbcDao!!!
-    *
-    * Сюда пихаем все операции с базой
-    * create, get, take etc
-    *
-     */
+    public boolean checkUserLogin(String userName, String password) {
+
+        jdbcDAO.mapPreparedStatement(preparedStatement -> {
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (!resultSet.next()) {
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
+
+            return true;
+
+        }, "SELECT *FROM Users WHERE username=? AND password=?", new String[]{userName, password});
+       return true;
+    }
+
+
 }

@@ -2,18 +2,18 @@ package helpers;
 
 import lombok.SneakyThrows;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+@SuppressWarnings("unchecked")
 public interface JdbcDAO extends Supplier<Connection> {
 
 
@@ -24,6 +24,10 @@ public interface JdbcDAO extends Supplier<Connection> {
     }
 
 
+    default <T>  T mapConnection(Function<Connection, T> tFunction)  {
+        return tFunction.apply(get());
+    }
+
     default void withStatement(Consumer<Statement> statementConsumer) {
         withConnection(connection -> {
             try {
@@ -33,6 +37,77 @@ public interface JdbcDAO extends Supplier<Connection> {
                 e.printStackTrace();
             }
         });
+    }
+
+
+
+
+    default <T> T mapStatement(Function<Statement, T> statementMapper) {
+
+        return mapConnection(connection -> {
+            try (Statement statement = connection.createStatement()) {
+                return statementMapper.apply(statement);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+
+            }
+        });
+    }
+
+
+    default void withResultSet(Consumer<ResultSet> resultSetConsumer, String SQL) {
+        withStatement(statement -> {
+
+            ResultSet resultSet = null;
+            try {
+                resultSet = statement.executeQuery(SQL);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            resultSetConsumer.accept(resultSet);
+
+        });
+    }
+
+
+    default void withPreparedStatement(Consumer<PreparedStatement> preparedStatementConsumer,
+                                       String SQL, Object [] objects) {
+
+        withConnection(connection -> {
+           try(PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+               for (int i = 0; i < objects.length;) {
+                   Object param = objects[i++];
+                   preparedStatement.setObject(i, param);
+               }
+               preparedStatementConsumer.accept(preparedStatement);
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+        });
+    }
+
+
+
+    default <T> T mapPreparedStatement(Function<PreparedStatement, T> preparedStatementTFunction,
+                                       String SQL, Object [] objects) {
+        return mapConnection(connection -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+                for (int i =0; i<objects.length;) {
+                    Object param = objects[i++];
+                    preparedStatement.setObject(i, param);
+                }
+
+                return preparedStatementTFunction.apply(preparedStatement);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+
+            }
+
+
+        });
+
     }
 
 

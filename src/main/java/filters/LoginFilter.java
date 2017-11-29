@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
             System.out.println("Hello, I`m servlet filter!");
             System.out.println(req.getRequestURI() + " i`m here!");
 
-            resp.sendRedirect("/pages/register.html");
+            //resp.sendRedirect("/pages/register.html");
 
             filterChain.doFilter(servletRequest, servletResponse);
         }
