@@ -1,27 +1,43 @@
 package helpers;
 
+import lombok.SneakyThrows;
+
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public final class ApplicationServletContext<T> implements Supplier<T>, Consumer<T>, ServletContextListener {
 
-    private ApplicationServletContext(String name) {
-        this.contextName = name;
+
+
+@WebListener
+public final class ApplicationServletContext implements ServletContextListener {
+
+    public ApplicationServletContext() {
+
     }
 
-
-    public static final ApplicationServletContext<JdbcDAO> DataBase =
-            new ApplicationServletContext<>("database");
-
-    private final String contextName;
+    private final String contextName = "database";
     private static ServletContext servletContext;
 
     @Override
+    @SneakyThrows
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         servletContext = servletContextEvent.getServletContext();
+        Class.forName("org.h2.Driver");
+        InitialContext initialContext = new InitialContext();
+        DataSource dataSource = (DataSource) initialContext.lookup("java:/comp/env/jdbc/h2");
+        Connection connection = dataSource.getConnection();
+        JdbcDAO jdbcDAO = () -> connection;
+
+        jdbcDAO.executeSql("/h2.sql");
+
+        servletContext.setAttribute(contextName, jdbcDAO);
     }
 
     @Override
@@ -30,14 +46,12 @@ public final class ApplicationServletContext<T> implements Supplier<T>, Consumer
     }
 
 
-    @Override
-    public void accept(T t) {
-        servletContext.setAttribute(contextName, t);
+    public JdbcDAO take() {
+        if (servletContext.getAttribute(contextName) == null) {
+            throw new RuntimeException("Its null, why? idk");
+        }
+        return (JdbcDAO) servletContext.getAttribute(contextName);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public T get() {
-        return (T)servletContext.getAttribute(contextName);
-    }
+
 }

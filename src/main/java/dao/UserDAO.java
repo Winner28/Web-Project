@@ -15,11 +15,14 @@ public class UserDAO {
 
     public boolean checkUserLogin(String userName, String password) {
 
-        jdbcDAO.mapPreparedStatement(preparedStatement -> {
+       return jdbcDAO.mapPreparedStatement(preparedStatement -> {
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (!resultSet.next()) {
-                    return false;
+                if (resultSet.next()) {
+                    String name = resultSet.getString("username");
+                    String pass = resultSet.getString("password");
+                    System.out.println(name + pass);
                 }
+
             } catch (SQLException e) {
                 e.printStackTrace();
 
@@ -27,8 +30,8 @@ public class UserDAO {
 
             return true;
 
-        }, "SELECT *FROM Users WHERE username=? AND password=?", new String[]{userName, password});
-       return true;
+        }, "SELECT * FROM User WHERE username=?", new String[]{userName, password});
+
     }
 
 
