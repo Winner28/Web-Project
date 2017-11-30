@@ -20,17 +20,21 @@ public class UserDAO {
                 if (resultSet.next()) {
                     String name = resultSet.getString("username");
                     String pass = resultSet.getString("password");
-                    System.out.println(name + pass);
+                    if (userName.equals(name) && password.equals(pass)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
                 }
 
             } catch (SQLException e) {
                 e.printStackTrace();
-
+                return false;
             }
 
-            return true;
-
-        }, "SELECT * FROM User WHERE username=?", new String[]{userName, password});
+        }, "SELECT * FROM User WHERE username=?", new String[]{userName});
 
     }
 
