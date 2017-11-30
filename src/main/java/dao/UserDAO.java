@@ -1,9 +1,11 @@
 package dao;
 
 import helpers.JdbcDAO;
+import model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class UserDAO {
     private final JdbcDAO jdbcDAO;
@@ -13,28 +15,35 @@ public class UserDAO {
         this.jdbcDAO = jdbcDAO;
     }
 
-    public boolean checkUserLogin(String userName, String password) {
+    public Optional<User> checkUserLogin(String userName, String password) {
 
-       return jdbcDAO.mapPreparedStatement(preparedStatement -> {
+       return Optional.ofNullable(jdbcDAO.mapPreparedStatement(preparedStatement -> {
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    String name = resultSet.getString("username");
+                    String username = resultSet.getString("username");
                     String pass = resultSet.getString("password");
-                    if (userName.equals(name) && password.equals(pass)) {
-                        return true;
+                    String name = resultSet.getString("name");
+                    int id = resultSet.getInt("id");
+                    if (userName.equals(username) && password.equals(pass)) {
+                        User user = new User()
+                                .setId(id)
+                                .setUserName(userName)
+                                .setPassword(password)
+                                .setName(name);
+                        return user;
                     } else {
-                        return false;
+                        return null;
                     }
                 } else {
-                    return false;
+                    return null;
                 }
 
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
 
-        }, "SELECT * FROM User WHERE username=?", new String[]{userName});
+        }, "SELECT * FROM User WHERE username=?", new String[]{userName}));
 
     }
 

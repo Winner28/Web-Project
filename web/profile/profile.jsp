@@ -1,18 +1,35 @@
-<%-- Created by IntelliJ IDEA. --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title></title>
+    <title>Профиль пользователя</title>
+    <style>
+        #user {
+            border: 1px solid #333;
+        }
+    </style>
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/pages/login.html" method="post">
-    <input type="submit" value="Go to login page">
-</form>
+<jsp:useBean id="user" scope="session" class="model.User"/>
 
-<form action="${pageContext.request.contextPath}/pages/register.html" method="post">
-    <input type="submit" value="Go to register page">
-</form>
+<table id="user">
+    <tr>
+        <th>название</th>
+        <th>значение</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>${user.id}</td>
+    </tr>
+    <tr>
+        <td>Имя</td>
+        <td>${user.name}</td>
+    </tr>
+    <tr>
+        <td>Логин</td>
+        <td>${user.userName}</td>
+    </tr>
+</table>
 
 </body>
 </html>

@@ -3,7 +3,7 @@ package model;
 public class User {
 
 
-    private String id;
+    private int id;
     private String name;
     private String userName;
     private String password;
@@ -13,7 +13,7 @@ public class User {
         return this;
     }
 
-    public User setId(String id) {
+    public User setId(int id) {
         this.id = id;
         return this;
     }
@@ -36,11 +36,16 @@ public class User {
         return password;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     public String getUserName() {
         return userName;
+    }
+
+    @Override
+    public String toString() {
+        return this.getId() + " " + this.getName() + " " + this.getUserName();
     }
 }

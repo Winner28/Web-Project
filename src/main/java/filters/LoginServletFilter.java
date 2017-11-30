@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 
 
 @WebFilter ("/pages/LoginServlet")
-public class LoginFilter implements Filter {
+public class LoginServletFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
