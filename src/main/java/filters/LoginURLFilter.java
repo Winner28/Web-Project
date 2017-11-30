@@ -12,22 +12,20 @@ import java.io.IOException;
 @WebFilter("/pages/login.html")
 public class LoginURLFilter implements Filter {
 
+    private ServletContext servletContext;
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        this.servletContext = filterConfig.getServletContext();
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute("user");
-        if (user!=null) {
+        if (session.getAttribute("user") != null) {
             response.sendRedirect("/profile/profile.jsp");
-        } else {
-
+            servletContext.log("Session is not null, redirected to profile");
         }
 
         filterChain.doFilter(request, response);
