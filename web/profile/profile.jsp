@@ -1,3 +1,5 @@
+<%@ page import="model.User" %>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -9,6 +11,16 @@
     </style>
 </head>
 <body>
+
+<%--<%
+    User userSess = (User) session.getAttribute("user");
+
+    if (userSess == null || userSess.getUserName() == null || userSess.getPassword() == null) {
+       request.getRequestDispatcher("/pages/login.html").forward(request, response);
+    }
+
+
+%>--%>
 
 <jsp:useBean id="user" scope="session" class="model.User"/>
 

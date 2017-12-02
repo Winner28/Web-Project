@@ -25,6 +25,19 @@ public final class ApplicationServletContext implements ServletContextListener {
     private final String contextName = "database";
     private static ServletContext servletContext;
 
+
+    /*public static ApplicationServletContext getAppContextInstance() {
+        if(appContextInstance == null){
+            synchronized (ApplicationServletContext.class) {
+                if(appContextInstance == null){
+                    appContextInstance = new ApplicationServletContext();
+                }
+            }
+        }
+
+        return appContextInstance;
+    }
+*/
     @Override
     @SneakyThrows
     public void contextInitialized(ServletContextEvent servletContextEvent) {

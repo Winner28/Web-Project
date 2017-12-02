@@ -1,4 +1,4 @@
-package filters;
+package filters.characterfilter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
