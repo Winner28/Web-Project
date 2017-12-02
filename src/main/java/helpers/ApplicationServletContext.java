@@ -8,6 +8,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -38,8 +39,8 @@ public final class ApplicationServletContext implements ServletContextListener {
         return appContextInstance;
     }
 */
-    @Override
     @SneakyThrows
+    @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         servletContext = servletContextEvent.getServletContext();
         Class.forName("org.h2.Driver");
@@ -52,6 +53,7 @@ public final class ApplicationServletContext implements ServletContextListener {
 
         servletContext.setAttribute(contextName, jdbcDAO);
     }
+
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
