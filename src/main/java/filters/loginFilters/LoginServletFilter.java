@@ -19,12 +19,17 @@ public class LoginServletFilter implements Filter {
         public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
             HttpServletRequest req = (HttpServletRequest) servletRequest;
             HttpServletResponse resp = (HttpServletResponse) servletResponse;
-            HttpSession session = req.getSession(false);
-            if (session == null || req.getParameter("userName") == null) {
-                resp.sendRedirect("/pages/login.html");
-            }
 
+            HttpSession session = req.getSession(false);
+
+           /* if (session != null && session.getAttribute("user") != null) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                resp.sendRedirect("/pages/login.html");
+
+            }*/
             filterChain.doFilter(servletRequest, servletResponse);
+
 
         }
 

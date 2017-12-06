@@ -15,7 +15,7 @@ public class UserDAO {
         this.jdbcDAO = jdbcDAO;
     }
 
-    public Optional<User> checkUserLogin(String userName, String password) {
+    public Optional<User> checkUser(String userName, String password) {
 
        return Optional.ofNullable(jdbcDAO.mapPreparedStatement(preparedStatement -> {
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -25,12 +25,11 @@ public class UserDAO {
                     String name = resultSet.getString("name");
                     int id = resultSet.getInt("id");
                     if (userName.equals(username) && password.equals(pass)) {
-                        User user = new User()
+                        return new User()
                                 .setId(id)
                                 .setUserName(userName)
                                 .setPassword(password)
                                 .setName(name);
-                        return user;
                     } else {
                         return null;
                     }
@@ -47,5 +46,11 @@ public class UserDAO {
 
     }
 
+
+    public boolean registerUser(String name, String username, String password) {
+       return !jdbcDAO.mapPreparedStatement(preparedStatement -> checkUser(username,password).isPresent(),
+               "INSERT INTO User (name, username, password) VALUES (?, ?, ?)",
+                new String[]{name, username, password });
+    }
 
 }

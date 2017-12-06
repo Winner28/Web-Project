@@ -37,12 +37,10 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("userName");
         String password = req.getParameter("password");
 
-        Optional<User> userOptional = userDAO.checkUserLogin(username, password);
+        Optional<User> userOptional = userDAO.checkUser(username, password);
         if (userOptional.isPresent()) {
             servletContext.log("Login success for users: " + userOptional.get());
-            HttpSession session = req.getSession();
-            session.setMaxInactiveInterval(30*60);
-            session.setAttribute("user", userOptional.get());
+            req.getSession(true).setAttribute("user", userOptional.get());
             req.setAttribute("user", userOptional.get());
             req.getRequestDispatcher("/profile/profile.jsp").forward(req, resp);
 

@@ -20,19 +20,22 @@ public class LoginURLFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+       HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("user") != null) {
+
+        if ( session!=null && session.getAttribute("user") != null) {
             response.sendRedirect("/profile/profile.jsp");
             servletContext.log("Session is not null, redirected to profile");
         } else {
             //do nothing
+            filterChain.doFilter(request, response);
             servletContext.log("Session is null");
         }
 
 
-        filterChain.doFilter(request, response);
+
+
 
     }
 

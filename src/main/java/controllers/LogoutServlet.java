@@ -18,11 +18,14 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(true);
-        String info = session.getAttribute("user").toString();
-        session.invalidate();
-        getServletContext().log("User" + info +"has left!");
-        req.getRequestDispatcher("/pages/login.html").forward(req, resp);
+        HttpSession session = req.getSession(false);
+        if ( session!=null && session.getAttribute("user") != null) {
+            getServletContext().log("User" + session.getAttribute("user").toString() +"has left!");
+            session.invalidate();
+            resp.sendRedirect("/pages/login.html");
+        }
+
+       // req.getRequestDispatcher("/pages/login.html").forward(req, resp);
     }
 
     @Override
