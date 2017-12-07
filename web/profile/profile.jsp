@@ -22,6 +22,7 @@
 
 %>--%>
 
+
 <jsp:useBean id="user" scope="session" class="model.User"/>
 
 <table id="user">
@@ -42,6 +43,14 @@
         <td>${user.userName}</td>
     </tr>
 </table>
+
+<div>
+<form action="${pageContext.request.contextPath}/pages/LogoutServlet" method="post">
+    <input type="submit" value="Log out">
+</form>
+
+
+</div>
 
 </body>
 </html>
