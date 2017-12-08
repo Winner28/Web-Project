@@ -12,16 +12,16 @@
 </head>
 <body>
 
-<%--<%
+<%
     User userSess = (User) session.getAttribute("user");
+    if (userSess == null) {
+        request.getRequestDispatcher("/pages/login.html").forward(request, response);
 
-    if (userSess == null || userSess.getUserName() == null || userSess.getPassword() == null) {
-       request.getRequestDispatcher("/pages/login.html").forward(request, response);
     }
-
-
-%>--%>
-
+    else if (userSess.getId() == 0) {
+        request.getRequestDispatcher("/pages/login.html").forward(request, response);
+    }
+%>
 
 <jsp:useBean id="user" scope="session" class="model.User"/>
 

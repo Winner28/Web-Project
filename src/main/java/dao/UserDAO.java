@@ -84,11 +84,8 @@ public class UserDAO {
     }
 
 
-
-
-
     public List<User> getAll() {
-
+        
         List<User> users = new ArrayList<>();
         jdbcDAO.withResultSet(rs -> {
                     try {
@@ -108,7 +105,5 @@ public class UserDAO {
 
         return users;
     }
-
-
 
 }

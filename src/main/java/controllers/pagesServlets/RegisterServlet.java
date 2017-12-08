@@ -1,7 +1,8 @@
-package controllers;
+package controllers.pagesServlets;
 
 import dao.UserDAO;
 import helpers.ApplicationServletContext;
+import helpers.JdbcDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -21,7 +22,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        userDAO = new UserDAO(new ApplicationServletContext().take());
+        userDAO = new UserDAO((JdbcDAO) getServletContext().getAttribute("database"));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package controllers;
+package controllers.pagesServlets;
 
 import dao.UserDAO;
 import helpers.ApplicationServletContext;
@@ -27,10 +27,11 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        ApplicationServletContext applicationServletContex = new ApplicationServletContext();
-        userDAO = new UserDAO(applicationServletContex.take());
+        userDAO = new UserDAO((JdbcDAO) getServletContext().getAttribute("database"));
         servletContext = getServletContext();
     }
+
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
