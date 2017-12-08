@@ -61,12 +61,4 @@ public final class ApplicationServletContext implements ServletContextListener {
     }
 
 
-    public JdbcDAO take() {
-        if (servletContext.getAttribute(contextName) == null) {
-            throw new RuntimeException("Its null, why? idk");
-        }
-        return (JdbcDAO) servletContext.getAttribute(contextName);
-    }
-
-
 }

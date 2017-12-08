@@ -45,6 +45,21 @@
 </table>
 
 <div>
+
+    <form action="${pageContext.request.contextPath}/pages/LogoutServlet" method="post">
+        <input type="submit" value="Сделать заказ">
+    </form>
+
+    <form action="${pageContext.request.contextPath}/products/ProductsServlet" method="post">
+        <input type="submit" value="Посмотреть все товары">
+    </form>
+
+    <form action="${pageContext.request.contextPath}/pages/LogoutServlet" method="post">
+        <input type="submit" value="Корзина">
+    </form>
+
+
+
 <form action="${pageContext.request.contextPath}/pages/LogoutServlet" method="post">
     <input type="submit" value="Log out">
 </form>

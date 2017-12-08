@@ -91,8 +91,8 @@ public class UserDAO {
                     try {
                         while (rs.next())
                             users.add(new User()
-                            .setId(rs.getInt("id"))
-                            .setName(rs.getString("name"))
+                                    .setId(rs.getInt("id"))
+                                    .setName(rs.getString("name"))
                                     .setPassword(rs.getString("password"))
                                     .setUserName(rs.getString("username"))
                             );

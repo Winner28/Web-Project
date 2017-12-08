@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 
-@WebServlet("/pages/admin")
+@WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
 
