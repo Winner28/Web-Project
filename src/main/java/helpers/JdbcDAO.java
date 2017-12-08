@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 @SuppressWarnings("unchecked")
 public interface JdbcDAO extends Supplier<Connection> {
 
@@ -111,9 +113,31 @@ public interface JdbcDAO extends Supplier<Connection> {
     }
 
 
+    default <T> T mapPreparedStatementFlagged(Function<PreparedStatement, T> preparedStatementMapper,
+                                              String sql,
+                                              Object [] params) {
+
+
+        return mapConnection(connection -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, RETURN_GENERATED_KEYS)) {
+
+                for (int i = 0; i < params.length; ) {
+                    Object param = params[i];
+                    preparedStatement.setObject(++i, param);
+                }
+
+                return preparedStatementMapper.apply(preparedStatement);
+            } catch (SQLException e) {
+                throw new RuntimeException("e");
+            }
+        });
+    }
+
+
 
     default void executeSql(String resourceName) {
         String sql = getInitSql(resourceName);
+        System.out.println(sql);
         withStatement(statement -> {
             try {
                 statement.execute(sql);
@@ -135,5 +159,6 @@ public interface JdbcDAO extends Supplier<Connection> {
             return lines.collect(Collectors.joining());
         }
     }
+
 
 }

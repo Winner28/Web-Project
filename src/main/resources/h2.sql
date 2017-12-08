@@ -1,25 +1,16 @@
-  SET MODE POSTGRESQL;
 
-CREATE TABLE IF NOT EXISTS Country (
-  id        IDENTITY,
-  name      VARCHAR(255),
-  code_name VARCHAR(255)
-);
+SET MODE POSTGRESQL;
 
 
 
-
-
-
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE IF NOT EXISTS USER (
   id         INT PRIMARY KEY AUTO_INCREMENT,
   name       VARCHAR(20),
   username   VARCHAR(20),
   password   VARCHAR(20) NOT NULL DEFAULT ''
 );
 
-
-  INSERT INTO User (name, username, password) VALUES ('vlad', 'admin', 'admin');
+INSERT INTO USER (name, username, password) VALUES ('vlad', 'admin', 'admin');
 
 
 

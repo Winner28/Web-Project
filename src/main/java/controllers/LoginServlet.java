@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Optional;
 
 
@@ -37,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("userName");
         String password = req.getParameter("password");
 
-        Optional<User> userOptional = userDAO.checkUser(username, password);
+        Optional<User> userOptional = userDAO.checkUserLogin(username, password);
         if (userOptional.isPresent()) {
             servletContext.log("Login success for users: " + userOptional.get());
             req.getSession(true).setAttribute("user", userOptional.get());
@@ -52,6 +53,7 @@ public class LoginServlet extends HttpServlet {
         }
 
 
+        System.out.println(userDAO.getAll());
 
 
     }

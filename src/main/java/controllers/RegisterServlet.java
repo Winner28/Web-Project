@@ -40,6 +40,7 @@ public class RegisterServlet extends HttpServlet {
             requestDispatcher.include(req, resp);
         }
 
+
         else if (userDAO.registerUser(name, username, password)) {
             PrintWriter out = resp.getWriter();
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/pages/login.html");
@@ -51,6 +52,7 @@ public class RegisterServlet extends HttpServlet {
             out.println("<font color=red>That username is already taken</font>");
             requestDispatcher.include(req, resp);
         }
+
 
     }
 
