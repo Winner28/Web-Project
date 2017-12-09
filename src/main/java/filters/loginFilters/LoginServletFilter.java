@@ -20,16 +20,11 @@ public class LoginServletFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) servletRequest;
             HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-            HttpSession session = req.getSession(false);
-
-           /* if (session != null && session.getAttribute("user") != null) {
-                filterChain.doFilter(servletRequest, servletResponse);
-            } else {
+            if (req.getParameter("userName") == null || req.getSession() == null) {
                 resp.sendRedirect("/pages/login.html");
-
-            }*/
-            filterChain.doFilter(servletRequest, servletResponse);
-
+            } else  {
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
 
         }
 
