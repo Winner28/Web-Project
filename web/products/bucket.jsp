@@ -28,28 +28,27 @@
 
 <form action="${pageContext.request.contextPath}/products/BucketServlet" method="post">
 
-<table id="gunlist">
-    <tr>
-        <th> </th>
-        <th>id</th>
-        <th>name</th>
-        <th>caliber</th>
-        <th>price</th>
-    </tr>
-    <c:forEach items="${products}" var="product">
+    <table id="gunlist">
         <tr>
 
-            <td> <input type="checkbox" name="product" value="${product.id}"> </td>
-            <td><c:out value="${product.id}"/></td>
-            <td><c:out value="${product.name}" /></td>
-            <td><c:out value="${product.caliber}" /></td>
-            <td><c:out value="${product.price}" /></td>
+            <th>id</th>
+            <th>name</th>
+            <th>caliber</th>
+            <th>price</th>
         </tr>
-    </c:forEach>
+        <c:forEach items="${bucket_products}" var="product">
+            <tr>
+
+                <td><c:out value="${product.id}"/></td>
+                <td><c:out value="${product.name}" /></td>
+                <td><c:out value="${product.caliber}" /></td>
+                <td><c:out value="${product.price}" /></td>
+            </tr>
+        </c:forEach>
 
 
-</table>
-<input type="submit" value="Add to bucket">
+    </table>
+    <input type="submit" value="Add to bucket">
 </form>
 
 

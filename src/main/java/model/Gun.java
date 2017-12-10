@@ -48,4 +48,9 @@ public class Gun {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Gun id: " + id + "\n";
+    }
 }
