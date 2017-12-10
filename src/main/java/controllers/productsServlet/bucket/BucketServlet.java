@@ -1,8 +1,10 @@
-package controllers.productsServlet;
+package controllers.productsServlet.bucket;
 
+import dao.BucketDAO;
 import dao.GunDAO;
 import helpers.JdbcDAO;
 import model.Gun;
+import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,15 +15,14 @@ import java.io.IOException;
 import java.util.Arrays;
 
 
-@WebServlet("/products/BucketServlet")
+@WebServlet("/products/ActionBucketServlet")
 public class BucketServlet extends HttpServlet {
 
-    private GunDAO gunDAO;
+    private BucketDAO bucketDAO;
 
     @Override
     public void init() throws ServletException {
-        gunDAO = new GunDAO((JdbcDAO) getServletContext().getAttribute("database"));
-
+        bucketDAO =new BucketDAO((JdbcDAO) getServletContext().getAttribute("database"));
     }
 
     @Override
@@ -30,9 +31,10 @@ public class BucketServlet extends HttpServlet {
             req.getRequestDispatcher("/pages/login.html").forward(req, resp);
         } else {
             String []chosen_products = req.getParameterValues("product");
-            System.out.println(gunDAO.getSelectedGuns(chosen_products));
-            req.setAttribute("bucket_products", gunDAO.getSelectedGuns(chosen_products));
 
+            User user = (User) req.getSession().getAttribute("user");
+            bucketDAO.addGuns(String.valueOf(user.getId()), chosen_products);
+            req.getRequestDispatcher("/products/MainBucketServlet").forward(req, resp);
         }
 
     }

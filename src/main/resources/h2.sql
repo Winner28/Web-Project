@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS USER (
   password   VARCHAR(20) NOT NULL DEFAULT ''
 );
 
-INSERT INTO USER (name, username, password) VALUES ('vlad', 'admin', 'admin');
 
 
 
@@ -20,6 +19,22 @@ CREATE TABLE IF NOT EXISTS Gun (
   caliber DOUBLE       NOT NULL,
   price   DOUBLE NOT NULL
 );
+
+
+CREATE TABLE IF NOT EXISTS Bucket (
+  id      INT,
+  gun_id  ARRAY
+
+);
+
+
+INSERT INTO USER (name, username, password) VALUES ('vlad', 'admin', 'admin');
+
+
+INSERT INTO Bucket (id, gun_id) VALUES (1, (1,2,3));
+
+
+
 
 INSERT INTO Gun (name, caliber, price) VALUES ('Kolt', 11.52, 523.33);
 INSERT INTO Gun (name, caliber, price) VALUES ('Beretta', 6.35, 600.54);

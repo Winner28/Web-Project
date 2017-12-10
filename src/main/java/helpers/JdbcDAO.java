@@ -74,7 +74,7 @@ public interface JdbcDAO extends Supplier<Connection> {
 
 
     default void withPreparedStatement(Consumer<PreparedStatement> preparedStatementConsumer,
-                                       String SQL, Object [] objects) {
+                                       String SQL, Object ... objects) {
 
         withConnection(connection -> {
            try(PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {

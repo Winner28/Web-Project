@@ -26,7 +26,7 @@
     }
 %>
 
-<form action="${pageContext.request.contextPath}/products/BucketServlet" method="post">
+<form action="${pageContext.request.contextPath}/products/ActionBucketServlet" method="post">
 
 <table id="gunlist">
     <tr>

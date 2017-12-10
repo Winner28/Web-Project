@@ -46,7 +46,7 @@
 
 <div>
 
-    <form action="${pageContext.request.contextPath}/pages/LogoutServlet" method="post">
+    <form action="${pageContext.request.contextPath}/products/OrderServlet" method="post">
         <input type="submit" value="Сделать заказ">
     </form>
 
@@ -54,7 +54,7 @@
         <input type="submit" value="Посмотреть все товары">
     </form>
 
-    <form action="${pageContext.request.contextPath}/pages/LogoutServlet" method="post">
+    <form action="${pageContext.request.contextPath}/products/MainBucketServlet" method="post">
         <input type="submit" value="Корзина">
     </form>
 
