@@ -33,7 +33,7 @@ public class OrderDAO {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-        }, "INSERT INTO Order (id, gun_order_list) VALUES (?,?)",
+        }, "INSERT INTO Orders (id, gun_order_list) VALUES (?,?)",
                 id, orderArr);
     }
 
@@ -56,7 +56,7 @@ public class OrderDAO {
             }
             return null;
 
-        }, "SELECT * From Bucket WHERE id=?", id));
+        }, "SELECT * From Orders WHERE id=?", id));
 
     }
 }
