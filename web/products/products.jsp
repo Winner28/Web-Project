@@ -24,23 +24,22 @@
     if (gunList == null || gunList.size() == 0) {
         request.getRequestDispatcher("/products/ProductsServlet").forward(request,response);
     }
+
 %>
 
 <form action="${pageContext.request.contextPath}/products/ActionBucketServlet" method="post">
 
 <table id="gunlist">
     <tr>
-        <th> </th>
-        <th>id</th>
-        <th>name</th>
-        <th>caliber</th>
-        <th>price</th>
+        <th>Add</th>
+        <th>Name</th>
+        <th>Caliber</th>
+        <th>Price</th>
     </tr>
     <c:forEach items="${products}" var="product">
         <tr>
 
             <td> <input type="checkbox" name="product" value="${product.id}"> </td>
-            <td><c:out value="${product.id}"/></td>
             <td><c:out value="${product.name}" /></td>
             <td><c:out value="${product.caliber}" /></td>
             <td><c:out value="${product.price}" /></td>

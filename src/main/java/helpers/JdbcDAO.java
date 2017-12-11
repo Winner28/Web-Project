@@ -92,7 +92,7 @@ public interface JdbcDAO extends Supplier<Connection> {
 
 
     default <T> T mapPreparedStatement(Function<PreparedStatement, T> preparedStatementTFunction,
-                                       String SQL, Object [] objects) {
+                                       String SQL, Object... objects) {
         return mapConnection(connection -> {
             try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
                 for (int i =0; i<objects.length;) {

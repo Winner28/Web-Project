@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.Gun" %><%--
+<%@ page import="model.Gun" %>
+<%@ page import="java.io.PrintWriter" %><%--
 
   Created by IntelliJ IDEA.
   User: vladey
@@ -7,7 +8,7 @@
   Time: 22:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
@@ -40,23 +41,27 @@
     <table id="gunlist">
         <tr>
 
-            <th>id</th>
-            <th>name</th>
-            <th>caliber</th>
-            <th>price</th>
+            <th>Name</th>
+            <th>Caliber</th>
+            <th>Price</th>
         </tr>
         <c:forEach items="${bucket_products}" var="product">
             <tr>
 
-                <td><c:out value="${product.id}"/></td>
                 <td><c:out value="${product.name}" /></td>
                 <td><c:out value="${product.caliber}" /></td>
                 <td><c:out value="${product.price}" /></td>
+
             </tr>
         </c:forEach>
 
 
     </table>
+
+    <h3>Total price: <%
+        out.println(String.valueOf(request.getAttribute("order_price")));
+        %></h3>
+    <input type="hidden" name="order_price" value='<%=String.valueOf(request.getAttribute("order_price"))%>'>
     <input type="submit" value="Make an order">
 </form>
 

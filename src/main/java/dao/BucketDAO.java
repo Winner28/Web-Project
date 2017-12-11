@@ -68,9 +68,22 @@ public class BucketDAO {
                 return bucket;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return null;
             }
-        }, "SELECT * From Bucket WHERE id=?", new String[]{id}));
+            return null;
 
+        }, "SELECT * From Bucket WHERE id=?", id));
+
+    }
+
+    public boolean deleteAllData(String id) {
+        return jdbcDAO.mapPreparedStatement(preparedStatement -> {
+            try {
+                preparedStatement.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }, "DELETE FROM Bucket WHERE id=?", id);
     }
 }

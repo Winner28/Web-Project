@@ -30,8 +30,8 @@ public class BucketServlet extends HttpServlet {
         if (req.getSession().getAttribute("user") == null) {
             req.getRequestDispatcher("/pages/login.html").forward(req, resp);
         } else {
-            String []chosen_products = req.getParameterValues("product");
 
+            String []chosen_products = req.getParameterValues("product");
             User user = (User) req.getSession().getAttribute("user");
             bucketDAO.addGuns(String.valueOf(user.getId()), chosen_products);
             req.getRequestDispatcher("/products/MainBucketServlet").forward(req, resp);
