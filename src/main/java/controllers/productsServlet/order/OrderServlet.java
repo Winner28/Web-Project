@@ -42,7 +42,8 @@ public class OrderServlet extends HttpServlet {
 
             List<Integer> list = bucket.getGunList();
             if (list.size() == 0) {
-                req.getRequestDispatcher("/products/empty.html").forward(req, resp);
+                req.setAttribute("value", "Order ");
+                req.getRequestDispatcher("/products/empty.jsp").forward(req, resp);
             } else {
 
                 String [] strArr = new String[list.size()];

@@ -44,7 +44,8 @@ public class CompleteOrdersServlet extends HttpServlet {
             Order userOrder = orderDAO.getOrderContent(String.valueOf(user.getId())).get();
             List<Integer> idList = userOrder.getGunList();
             if (idList.size() == 0) {
-                resp.sendRedirect("/products/empty.html");
+                req.setAttribute("value", "Order ");
+                req.getRequestDispatcher("/products/empty.jsp").forward(req, resp);
             } else {
                 String []arr = new String[idList.size()];
                 for (int i = 0; i < arr.length; i++) {
@@ -58,7 +59,7 @@ public class CompleteOrdersServlet extends HttpServlet {
                 userOrder.setPrice(price);
                 req.setAttribute("order_products", gunList);
                 req.setAttribute("order_price", userOrder.getPrice());
-                req.getRequestDispatcher("/products/completeOrders.jsp").forward(req, resp);
+                req.getRequestDispatcher("/products/complete.jsp").forward(req, resp);
             }
 
 

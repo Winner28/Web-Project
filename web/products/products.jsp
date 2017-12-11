@@ -48,7 +48,13 @@
 
 
 </table>
+    <br>
 <input type="submit" value="Add to bucket">
+</form>
+
+<form action="${pageContext.request.contextPath}/profile/profile.jsp" method="post">
+    <input type="submit" value="Back to profile">
+
 </form>
 
 

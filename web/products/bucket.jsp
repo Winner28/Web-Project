@@ -64,6 +64,9 @@
     <input type="hidden" name="order_price" value='<%=String.valueOf(request.getAttribute("order_price"))%>'>
     <input type="submit" value="Make an order">
 </form>
+<form action="${pageContext.request.contextPath}/profile/profile.jsp" method="post">
+    <input type="submit" value="Back to profile">
+
 
 
 </body>
