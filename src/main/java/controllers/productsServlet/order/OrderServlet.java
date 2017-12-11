@@ -45,6 +45,7 @@ public class OrderServlet extends HttpServlet {
                 req.getRequestDispatcher("/products/empty.html").forward(req, resp);
             } else {
 
+                //
                 if (bucketDAO.deleteAllData(String.valueOf(user.getId()))) {
                     req.setAttribute("order_price",req.getParameter("order_price"));
                     req.getRequestDispatcher("/products/order.jsp").forward(req, resp);
