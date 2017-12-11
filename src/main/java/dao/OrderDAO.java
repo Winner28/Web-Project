@@ -1,9 +1,13 @@
 package dao;
 
 import helpers.JdbcDAO;
+import model.Bucket;
+import model.Order;
 
 import java.sql.Array;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class OrderDAO {
 
@@ -31,5 +35,28 @@ public class OrderDAO {
                     }
         }, "INSERT INTO Order (id, gun_order_list) VALUES (?,?)",
                 id, orderArr);
+    }
+
+
+    public Optional<Order> getOrderContent(String id) {
+
+        return Optional.ofNullable(jdbcDAO.mapPreparedStatement(preparedStatement -> {
+            Order order = new Order().setId(Integer.parseInt(id));
+            try(ResultSet rs = preparedStatement.executeQuery()) {
+                while(rs.next()) {
+                    Array array = rs.getArray("gun_order_list");
+                    Object []type = (Object [])array.getArray();
+                    for (Object gid: type) {
+                        order.addGun(Integer.parseInt(gid.toString()));
+                    }
+                }
+                return order;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        }, "SELECT * From Bucket WHERE id=?", id));
+
     }
 }

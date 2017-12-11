@@ -45,22 +45,20 @@ public class OrderServlet extends HttpServlet {
                 req.getRequestDispatcher("/products/empty.html").forward(req, resp);
             } else {
 
-                //suda order hren i vstavit massiv listov v addGUn,
+                String [] strArr = new String[list.size()];
+
+                for (int i = 0; i < strArr.length; i++) {
+                    strArr[i] = String.valueOf(list.get(i));
+                }
+
                 if (bucketDAO.deleteAllData(String.valueOf(user.getId()))) {
+                    orderDAO.addOrder(String.valueOf(user.getId()), strArr);
                     req.setAttribute("order_price",req.getParameter("order_price"));
                     req.getRequestDispatcher("/products/order.jsp").forward(req, resp);
                 } else {
                     resp.sendError(HttpServletResponse.SC_BAD_GATEWAY);
                 }
-
-
             }
-
-
-
-
-
-
 
         }
     }

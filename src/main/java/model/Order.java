@@ -6,7 +6,7 @@ import java.util.List;
 public class Order {
 
     private int id;
-    private List<Gun> gunList;
+    private List<Integer> gunList;
     private double price;
 
     public Order() {
@@ -18,7 +18,11 @@ public class Order {
         return this;
     }
 
-    public Order addGun(Gun gun) {
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Order addGun(int gun) {
         gunList.add(gun);
         return this;
     }
@@ -26,6 +30,13 @@ public class Order {
     public int getId() {
         return id;
     }
+
+
+    public List<Integer> getGunList() {
+        return gunList;
+    }
+
+
 
     public double getPrice() {
         return price;
