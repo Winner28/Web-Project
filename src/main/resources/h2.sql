@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Bucket (
 
 );
 
-CREATE TABLE IF NOT EXISTS Orders (
+CREATE TABLE IF NOT EXISTS Order (
   id             INT PRIMARY KEY,
   gun_order_list ARRAY,
   price          DOUBLE NOT NULL

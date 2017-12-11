@@ -2,6 +2,7 @@ package controllers.productsServlet.order;
 
 import dao.BucketDAO;
 import dao.GunDAO;
+import dao.OrderDAO;
 import helpers.JdbcDAO;
 import model.Bucket;
 import model.Gun;
@@ -20,15 +21,14 @@ import java.util.List;
 public class OrderServlet extends HttpServlet {
 
 
-    private GunDAO gunDAO;
+
     private BucketDAO bucketDAO;
+    private OrderDAO orderDAO;
 
     @Override
     public void init() throws ServletException {
-        gunDAO = new GunDAO((JdbcDAO) getServletContext().getAttribute("database"));
         bucketDAO =new BucketDAO((JdbcDAO) getServletContext().getAttribute("database"));
-
-
+        orderDAO =new OrderDAO((JdbcDAO) getServletContext().getAttribute("database"));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class OrderServlet extends HttpServlet {
                 req.getRequestDispatcher("/products/empty.html").forward(req, resp);
             } else {
 
-                //
+                //suda order hren i vstavit massiv listov v addGUn,
                 if (bucketDAO.deleteAllData(String.valueOf(user.getId()))) {
                     req.setAttribute("order_price",req.getParameter("order_price"));
                     req.getRequestDispatcher("/products/order.jsp").forward(req, resp);
