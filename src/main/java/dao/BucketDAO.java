@@ -2,10 +2,8 @@ package dao;
 
 import helpers.JdbcDAO;
 import model.Bucket;
-import model.User;
 
 import java.sql.Array;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -28,20 +26,8 @@ public class BucketDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < chosen_products.length-1; i++) {
-            sb.append(", (?)");
-        }*/
-        String SQL = "INSERT INTO Bucket (id, gun_id) VALUES (?,?)";
-      /*  try {
-            PreparedStatement preparedStatement = jdbcDAO.get().prepareStatement(SQL);
-            preparedStatement.setInt(1, Integer.parseInt(id));
-            preparedStatement.setArray(2, products_array);
-            preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+        String SQL = "INSERT INTO Bucket (id, gun_id) VALUES (?,?)";
 
         jdbcDAO.withPreparedStatement(preparedStatement -> {
             try {
