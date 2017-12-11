@@ -27,15 +27,12 @@ CREATE TABLE IF NOT EXISTS Bucket (
 );
 
 CREATE TABLE IF NOT EXISTS Orders (
-  id             INT,
+  id             INT PRIMARY KEY ,
   gun_order_list ARRAY
 );
 
 
-
-
-
-INSERT INTO Bucket (id, gun_id) VALUES (1, (1,2,3));
+INSERT INTO Bucket (id, gun_id) VALUES (1, (1,1,2,3));
 
 
 

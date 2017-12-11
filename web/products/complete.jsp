@@ -18,7 +18,7 @@
 </head>
 <body>
 
-
+<h1>Orders</h1>
 <%
     List<Gun> gunList = (List<Gun>) request.getAttribute("order_products");
     if (gunList == null || gunList.size() == 0) {
@@ -48,7 +48,9 @@
 
     </table>
 
-<br>
+
+
+<h2>Total price is: <%out.println(String.valueOf(request.getAttribute("order_price")));%></h2>
 
 <form action="${pageContext.request.contextPath}/profile/profile.jsp" method="post">
     <input type="submit" value="Back to profile">

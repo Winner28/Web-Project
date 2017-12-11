@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -41,6 +42,7 @@ public class MainBucketServlet extends HttpServlet {
             System.out.println(user.getId());
             Bucket bucket = bucketDAO.getBucketContent(String.valueOf(user.getId())).get();
             List<Integer> list = bucket.getGunList();
+
             if (list.size() == 0) {
                 req.setAttribute("value", "Bucket ");
                 req.getRequestDispatcher("/products/empty.jsp").forward(req, resp);
@@ -53,8 +55,9 @@ public class MainBucketServlet extends HttpServlet {
 
                 List<Gun> gunList = gunDAO.getSelectedGuns(strArr);
                 double price = 0;
-                for (Gun gun : gunList)
+                for (Gun gun : gunList) {
                     price += gun.getPrice();
+                }
 
                 req.setAttribute("order_price", price);
                 req.setAttribute("bucket_products", gunDAO.getSelectedGuns(strArr));
