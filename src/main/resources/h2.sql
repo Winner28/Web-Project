@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS USER (
   password   VARCHAR(20) NOT NULL DEFAULT ''
 );
 
-
+INSERT INTO USER (name, username, password) VALUES ('vlad', 'admin', 'admin');
 
 
 CREATE TABLE IF NOT EXISTS Gun (
@@ -24,17 +24,15 @@ CREATE TABLE IF NOT EXISTS Gun (
 CREATE TABLE IF NOT EXISTS Bucket (
   id      INT,
   gun_id  ARRAY
-
 );
 
 CREATE TABLE IF NOT EXISTS Orders (
-  id             INT PRIMARY KEY,
-  gun_order_list ARRAY,
-  price          DOUBLE NOT NULL
+  id             INT,
+  gun_order_list ARRAY
 );
 
 
-INSERT INTO USER (name, username, password) VALUES ('vlad', 'admin', 'admin');
+
 
 
 INSERT INTO Bucket (id, gun_id) VALUES (1, (1,2,3));
