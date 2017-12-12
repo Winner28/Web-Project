@@ -56,16 +56,13 @@ public class CompleteOrdersServlet extends HttpServlet {
                 for (Gun gun : gunList) {
                     price += gun.getPrice();
                 }
+                //delete
+                gunDAO.deleteOrderGuns(arr);
                 userOrder.setPrice(price);
                 req.setAttribute("order_products", gunList);
                 req.setAttribute("order_price", userOrder.getPrice());
                 req.getRequestDispatcher("/products/complete.jsp").forward(req, resp);
             }
-
-
-
-
-
         }
     }
 

@@ -69,4 +69,21 @@ public class GunDAO {
 
         return guns;
     }
+
+    public void deleteOrderGuns(String []del_guns) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < del_guns.length - 1; i++) {
+            sb.append("OR").append("id=?");
+        }
+
+        String SQL = "DELETE FROM Gun WHERE id=?" + sb;
+
+        jdbcDAO.withPreparedStatement(preparedStatement -> {
+            try {
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        },SQL, del_guns);
+    }
 }
